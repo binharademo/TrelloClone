@@ -22,6 +22,13 @@ A full-stack Trello clone application built with ASP.NET Core and Blazor WebAsse
 - .NET 9.0 SDK or later
 - SQLite (included in the project)
 
+## Database Information
+
+The application uses SQLite as its database, which is stored in a file at the following location:
+- **Database file**: `TrelloClone/trelloclone.db` (located in the root of the TrelloClone backend project)
+
+The database is automatically created and seeded with a test user when the application runs for the first time.
+
 ## Test User Credentials
 
 The application comes with a pre-configured test user:

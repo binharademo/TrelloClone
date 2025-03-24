@@ -1,0 +1,205 @@
+@page "/boards"
+@inject IBoardService BoardService
+@inject IAuthService AuthService
+@inject NavigationManager NavigationManager
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>My Boards</h2>
+        <button class="btn btn-primary" @onclick="() => _showAddBoardModal = true">
+            <span class="oi oi-plus"></span> Create New Board
+        </button>
+    </div>
+
+    @if (_isLoading)
+    {
+        <div class="d-flex justify-content-center">
+            <div class="spinner-border" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+    }
+    else if (_boards == null || _boards.Count == 0)
+    {
+        <div class="alert alert-info">
+            <p>You don't have any boards yet. Create your first board to get started!</p>
+        </div>
+    }
+    else
+    {
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+            @foreach (var board in _boards)
+            {
+                <div class="col">
+                    <div class="card h-100 board-card">
+                        <div class="card-body">
+                            <h5 class="card-title">@board.Name</h5>
+                            <p class="card-text">@board.Description</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <button class="btn btn-primary" @onclick="() => NavigateToBoard(board.Id)">
+                                    <span class="oi oi-eye"></span> View
+                                </button>
+                                <button class="btn btn-danger" @onclick="() => ShowDeleteBoardModal(board)">
+                                    <span class="oi oi-trash"></span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-footer text-muted">
+                            Created: @board.CreatedAt.ToLocalTime().ToString("g")
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>
+
+@if (_showAddBoardModal)
+{
+    <div class="modal fade show" style="display: block;" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Create New Board</h5>
+                    <button type="button" class="btn-close" @onclick="() => _showAddBoardModal = false"></button>
+                </div>
+                <div class="modal-body">
+                    <EditForm Model="@_newBoard" OnValidSubmit="CreateBoard">
+                        <DataAnnotationsValidator />
+                        <ValidationSummary />
+                        
+                        <div class="mb-3">
+                            <label for="boardName" class="form-label">Board Name</label>
+                            <InputText id="boardName" @bind-Value="_newBoard.Name" class="form-control" />
+                            <ValidationMessage For="@(() => _newBoard.Name)" />
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="boardDescription" class="form-label">Description (Optional)</label>
+                            <InputTextArea id="boardDescription" @bind-Value="_newBoard.Description" class="form-control" rows="3" />
+                        </div>
+                        
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" @onclick="() => _showAddBoardModal = false">Cancel</button>
+                            <button type="submit" class="btn btn-primary">Create Board</button>
+                        </div>
+                    </EditForm>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-backdrop fade show"></div>
+}
+
+@if (_showDeleteBoardModal && _boardToDelete != null)
+{
+    <div class="modal fade show" style="display: block;" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Delete Board</h5>
+                    <button type="button" class="btn-close" @onclick="() => _showDeleteBoardModal = false"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to delete the board "@_boardToDelete.Name"?</p>
+                    <p class="text-danger">This will also delete all lists and cards in this board. This action cannot be undone.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" @onclick="() => _showDeleteBoardModal = false">Cancel</button>
+                    <button type="button" class="btn btn-danger" @onclick="DeleteBoard">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-backdrop fade show"></div>
+}
+
+@code {
+    private List<Board> _boards = new();
+    private bool _isLoading = true;
+    private bool _showAddBoardModal;
+    private bool _showDeleteBoardModal;
+    private Board _newBoard = new();
+    private Board? _boardToDelete;
+
+    protected override async Task OnInitializedAsync()
+    {
+        // Check if user is authenticated
+        var isAuthenticated = await AuthService.IsAuthenticated();
+        if (!isAuthenticated)
+        {
+            NavigationManager.NavigateTo("/login");
+            return;
+        }
+
+        await LoadBoards();
+    }
+
+    private async Task LoadBoards()
+    {
+        _isLoading = true;
+        try
+        {
+            _boards = await BoardService.GetBoardsAsync();
+        }
+        catch (Exception)
+        {
+            // Handle error
+        }
+        finally
+        {
+            _isLoading = false;
+        }
+    }
+
+    private void NavigateToBoard(int boardId)
+    {
+        NavigationManager.NavigateTo($"/board/{boardId}");
+    }
+
+    private void ShowDeleteBoardModal(Board board)
+    {
+        _boardToDelete = board;
+        _showDeleteBoardModal = true;
+    }
+
+    private async Task CreateBoard()
+    {
+        try
+        {
+            var createdBoard = await BoardService.CreateBoardAsync(_newBoard);
+            
+            if (createdBoard != null)
+            {
+                _boards.Add(createdBoard);
+                _showAddBoardModal = false;
+                _newBoard = new Board();
+            }
+        }
+        catch (Exception)
+        {
+            // Handle error
+        }
+    }
+
+    private async Task DeleteBoard()
+    {
+        if (_boardToDelete == null) return;
+        
+        try
+        {
+            var success = await BoardService.DeleteBoardAsync(_boardToDelete.Id);
+            
+            if (success)
+            {
+                _boards.Remove(_boardToDelete);
+                _showDeleteBoardModal = false;
+                _boardToDelete = null;
+            }
+        }
+        catch (Exception)
+        {
+            // Handle error
+        }
+    }
+}

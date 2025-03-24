@@ -1,0 +1,239 @@
+@page "/login"
+@inject IAuthService AuthService
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JSRuntime
+@inject ILoggingService Logger
+@inject HttpClient Http
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="mb-0">Login</h3>
+                </div>
+                <div class="card-body">
+                    @if (!string.IsNullOrEmpty(_errorMessage))
+                    {
+                        <div class="alert alert-danger" role="alert">
+                            <h4 class="alert-heading">Login Failed!</h4>
+                            <p><strong>Error:</strong> @_errorMessage</p>
+                            <hr>
+                            <p class="mb-0">Please check your credentials and try again.</p>
+                        </div>
+                    }
+
+                    @if (!string.IsNullOrEmpty(_diagnosticMessage))
+                    {
+                        <div class="alert alert-info" role="alert">
+                            <h5>Diagnostic Information</h5>
+                            <pre style="white-space: pre-wrap; word-break: break-all; font-size: 0.8rem;">@_diagnosticMessage</pre>
+                        </div>
+                    }
+
+                    <EditForm Model="@_loginModel" OnValidSubmit="HandleLogin">
+                        <DataAnnotationsValidator />
+                        <ValidationSummary />
+
+                        <div class="form-group mb-3">
+                            <label for="email">Email</label>
+                            <InputText id="email" @bind-Value="_loginModel.Email" class="form-control" />
+                            <ValidationMessage For="@(() => _loginModel.Email)" />
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="password">Password</label>
+                            <InputText id="password" @bind-Value="_loginModel.Password" type="password" class="form-control" />
+                            <ValidationMessage For="@(() => _loginModel.Password)" />
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary" disabled="@_isLoading">
+                                @if (_isLoading)
+                                {
+                                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                    <span> Loading...</span>
+                                }
+                                else
+                                {
+                                    <span>Login</span>
+                                }
+                            </button>
+                        </div>
+                    </EditForm>
+
+                    <div class="mt-3 text-center">
+                        <p>Don't have an account? <a href="register">Register here</a></p>
+                    </div>
+                    
+                    <div class="mt-3 d-grid gap-2">
+                        <button class="btn btn-info" @onclick="ShowLoginDetails">Show Login Details</button>
+                        <button class="btn btn-warning" @onclick="TestConnection">Test API Connection</button>
+                        <button class="btn btn-secondary" @onclick="ShowPasswordHash">Show Password Hash</button>
+                    </div>
+                    
+                    @if (!string.IsNullOrEmpty(_connectionStatus))
+                    {
+                        <div class="alert @(_connectionSuccess ? "alert-success" : "alert-danger") mt-3">
+                            <p>@_connectionStatus</p>
+                        </div>
+                    }
+                </div>
+                <div class="card-footer bg-light">
+                    <small class="text-muted">Test User Credentials: test@example.com / password123</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    private TrelloClone.Client.Models.LoginModel _loginModel = new();
+    private bool _isLoading;
+    private string? _errorMessage;
+    private string? _connectionStatus;
+    private string? _diagnosticMessage;
+    private bool _connectionSuccess;
+
+    protected override async Task OnInitializedAsync()
+    {
+        // Redirect if already logged in
+        if (await AuthService.IsAuthenticated())
+        {
+            NavigationManager.NavigateTo("/boards");
+        }
+        
+        // Set default values for testing
+        _loginModel.Email = "test@example.com";
+        _loginModel.Password = "password123";
+        
+        await Logger.LogInformation("Login page initialized");
+    }
+
+    private async Task HandleLogin()
+    {
+        _isLoading = true;
+        _errorMessage = null;
+        _connectionStatus = null;
+        _diagnosticMessage = null;
+
+        try
+        {
+            await Logger.LogInformation($"Login attempt initiated for email: {_loginModel.Email}");
+            
+            var (success, errorMessage) = await AuthService.Login(_loginModel);
+            
+            if (success)
+            {
+                await Logger.LogInformation($"Login successful for email: {_loginModel.Email}, redirecting to boards");
+                NavigationManager.NavigateTo("/boards");
+            }
+            else
+            {
+                _errorMessage = errorMessage ?? "Invalid email or password";
+                await Logger.LogWarning($"Login failed for email: {_loginModel.Email}. Error: {_errorMessage}");
+                
+                // Add diagnostic information
+                _diagnosticMessage = $"Login attempt failed at {DateTime.Now}\n" +
+                                    $"Email: {_loginModel.Email}\n" +
+                                    $"Error: {_errorMessage}\n" +
+                                    $"API URL: http://localhost:5022/api/auth/login";
+                
+                await JSRuntime.InvokeVoidAsync("console.error", "Login failed", _errorMessage);
+            }
+        }
+        catch (Exception ex)
+        {
+            _errorMessage = $"An error occurred: {ex.Message}";
+            _diagnosticMessage = $"Exception details:\n{ex.Message}\n{ex.StackTrace}";
+            await Logger.LogError($"Login exception: {ex.Message}\nStack trace: {ex.StackTrace}");
+            await JSRuntime.InvokeVoidAsync("console.error", "Login exception", ex.Message, ex.StackTrace);
+        }
+        finally
+        {
+            _isLoading = false;
+            StateHasChanged();
+        }
+    }
+    
+    private async Task ShowLoginDetails()
+    {
+        string message = $"Current login attempt details:\n" +
+                         $"Email: {_loginModel.Email}\n" +
+                         $"Password: {_loginModel.Password.Length} characters\n" +
+                         $"API URL: {NavigationManager.BaseUri.Replace("5007", "5022")}api/auth/login";
+        
+        await Logger.LogInformation($"Showing login details");
+        _diagnosticMessage = message;
+        StateHasChanged();
+    }
+    
+    private async Task TestConnection()
+    {
+        _connectionStatus = "Testing connection to API...";
+        _connectionSuccess = false;
+        _diagnosticMessage = null;
+        StateHasChanged();
+        
+        try
+        {
+            await Logger.LogInformation("Testing API connection");
+            var httpClient = new System.Net.Http.HttpClient();
+            var apiUrl = "http://localhost:5022";
+            var response = await httpClient.GetAsync($"{apiUrl}/api/health");
+            
+            if (response.IsSuccessStatusCode)
+            {
+                var content = await response.Content.ReadAsStringAsync();
+                _connectionStatus = $"API connection successful! Status: {response.StatusCode}";
+                _connectionSuccess = true;
+                _diagnosticMessage = $"API Health Check Response:\n{content}";
+                await Logger.LogInformation($"API connection successful. Status: {response.StatusCode}, Content: {content}");
+            }
+            else
+            {
+                _connectionStatus = $"API connection failed. Status: {response.StatusCode}";
+                _diagnosticMessage = $"Failed to connect to API at {apiUrl}/api/health\nStatus: {response.StatusCode}";
+                await Logger.LogWarning($"API connection failed. Status: {response.StatusCode}");
+            }
+        }
+        catch (Exception ex)
+        {
+            _connectionStatus = $"API connection error: {ex.Message}";
+            _diagnosticMessage = $"Exception while connecting to API:\n{ex.Message}\n{ex.StackTrace}";
+            await Logger.LogError($"API connection error: {ex.Message}\nStack trace: {ex.StackTrace}");
+        }
+        
+        StateHasChanged();
+    }
+    
+    private async Task ShowPasswordHash()
+    {
+        try
+        {
+            var httpClient = new System.Net.Http.HttpClient();
+            var apiUrl = "http://localhost:5022";
+            var encodedPassword = System.Net.WebUtility.UrlEncode(_loginModel.Password);
+            var response = await httpClient.GetAsync($"{apiUrl}/api/auth/hash?password={encodedPassword}");
+            
+            if (response.IsSuccessStatusCode)
+            {
+                var content = await response.Content.ReadAsStringAsync();
+                _diagnosticMessage = $"Password: {_loginModel.Password}\nHash: {content}";
+                await Logger.LogInformation("Password hash retrieved successfully");
+            }
+            else
+            {
+                _diagnosticMessage = $"Failed to get password hash. Status: {response.StatusCode}";
+                await Logger.LogWarning($"Failed to get password hash. Status: {response.StatusCode}");
+            }
+        }
+        catch (Exception ex)
+        {
+            _diagnosticMessage = $"Error getting password hash: {ex.Message}";
+            await Logger.LogError($"Error getting password hash: {ex.Message}\nStack trace: {ex.StackTrace}");
+        }
+        
+        StateHasChanged();
+    }
+}

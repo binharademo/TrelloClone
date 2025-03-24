@@ -1,0 +1,587 @@
+@page "/board/{BoardId:int}"
+@inject IBoardService BoardService
+@inject ICardService CardService
+@inject ISignalRService SignalRService
+@inject IAuthService AuthService
+@inject NavigationManager NavigationManager
+@implements IDisposable
+
+<div class="board-container">
+    @if (_isLoading)
+    {
+        <div class="d-flex justify-content-center">
+            <div class="spinner-border" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+    }
+    else if (_board == null)
+    {
+        <div class="alert alert-danger">
+            Board not found or you don't have permission to view it.
+        </div>
+    }
+    else
+    {
+        <div class="board-header">
+            <h2>@_board.Name</h2>
+            <p>@_board.Description</p>
+            <button class="btn btn-sm btn-primary" @onclick="() => _showAddListModal = true">
+                <span class="oi oi-plus"></span> Add List
+            </button>
+        </div>
+
+        <div class="board-content">
+            <div class="lists-container">
+                @if (_board.Lists != null)
+                {
+                    @foreach (var list in _board.Lists)
+                    {
+                        <div class="list-column">
+                            <div class="list-header">
+                                <h5>@list.Name</h5>
+                                <button class="btn btn-sm btn-danger" @onclick="() => ShowDeleteListModal(list)">
+                                    <span class="oi oi-trash"></span>
+                                </button>
+                            </div>
+                            
+                            <div class="list-cards" 
+                                 ondragover="event.preventDefault();" 
+                                 @ondrop="@(e => HandleDrop(e, list.Id))"
+                                 @ondragover:preventDefault>
+                                @if (list.Cards != null)
+                                {
+                                    @foreach (var card in list.Cards)
+                                    {
+                                        <div class="card mb-2" 
+                                             draggable="true" 
+                                             @ondragstart="@(e => HandleDragStart(e, card))"
+                                             @onclick="() => ShowCardDetailModal(card)">
+                                            <div class="card-body p-2">
+                                                <h6 class="card-title">@card.Title</h6>
+                                                <p class="card-text small">@card.Description</p>
+                                                
+                                                @if (card.DueDate.HasValue)
+                                                {
+                                                    <div class="card-due-date @GetDueDateClass(card)">
+                                                        Due: @card.DueDate.Value.ToLocalTime().ToString("g")
+                                                    </div>
+                                                }
+                                            </div>
+                                        </div>
+                                    }
+                                }
+                                
+                                <button class="btn btn-sm btn-outline-primary w-100 mt-2" @onclick="() => ShowAddCardModal(list.Id)">
+                                    <span class="oi oi-plus"></span> Add Card
+                                </button>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    }
+</div>
+
+@if (_showAddListModal)
+{
+    <div class="modal fade show" style="display: block;" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add New List</h5>
+                    <button type="button" class="btn-close" @onclick="() => _showAddListModal = false"></button>
+                </div>
+                <div class="modal-body">
+                    <EditForm Model="@_newList" OnValidSubmit="AddList">
+                        <DataAnnotationsValidator />
+                        <ValidationSummary />
+                        
+                        <div class="mb-3">
+                            <label for="listName" class="form-label">List Name</label>
+                            <InputText id="listName" @bind-Value="_newList.Name" class="form-control" />
+                            <ValidationMessage For="@(() => _newList.Name)" />
+                        </div>
+                        
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" @onclick="() => _showAddListModal = false">Cancel</button>
+                            <button type="submit" class="btn btn-primary">Add List</button>
+                        </div>
+                    </EditForm>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-backdrop fade show"></div>
+}
+
+@if (_showAddCardModal)
+{
+    <div class="modal fade show" style="display: block;" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add New Card</h5>
+                    <button type="button" class="btn-close" @onclick="() => _showAddCardModal = false"></button>
+                </div>
+                <div class="modal-body">
+                    <EditForm Model="@_newCard" OnValidSubmit="AddCard">
+                        <DataAnnotationsValidator />
+                        <ValidationSummary />
+                        
+                        <div class="mb-3">
+                            <label for="cardTitle" class="form-label">Title</label>
+                            <InputText id="cardTitle" @bind-Value="_newCard.Title" class="form-control" />
+                            <ValidationMessage For="@(() => _newCard.Title)" />
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="cardDescription" class="form-label">Description</label>
+                            <InputTextArea id="cardDescription" @bind-Value="_newCard.Description" class="form-control" rows="3" />
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="cardDueDate" class="form-label">Due Date (Optional)</label>
+                            <InputDate id="cardDueDate" @bind-Value="_newCard.DueDate" class="form-control" />
+                        </div>
+                        
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" @onclick="() => _showAddCardModal = false">Cancel</button>
+                            <button type="submit" class="btn btn-primary">Add Card</button>
+                        </div>
+                    </EditForm>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-backdrop fade show"></div>
+}
+
+@if (_showCardDetailModal && _selectedCard != null)
+{
+    <div class="modal fade show" style="display: block;" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Card Details</h5>
+                    <button type="button" class="btn-close" @onclick="() => _showCardDetailModal = false"></button>
+                </div>
+                <div class="modal-body">
+                    <EditForm Model="@_selectedCard" OnValidSubmit="UpdateCard">
+                        <DataAnnotationsValidator />
+                        <ValidationSummary />
+                        
+                        <div class="mb-3">
+                            <label for="editCardTitle" class="form-label">Title</label>
+                            <InputText id="editCardTitle" @bind-Value="_selectedCard.Title" class="form-control" />
+                            <ValidationMessage For="@(() => _selectedCard.Title)" />
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="editCardDescription" class="form-label">Description</label>
+                            <InputTextArea id="editCardDescription" @bind-Value="_selectedCard.Description" class="form-control" rows="3" />
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="editCardDueDate" class="form-label">Due Date</label>
+                            <InputDate id="editCardDueDate" @bind-Value="_selectedCard.DueDate" class="form-control" />
+                        </div>
+                        
+                        <div class="mb-3 form-check">
+                            <InputCheckbox id="editCardCompleted" @bind-Value="_selectedCard.IsCompleted" class="form-check-input" />
+                            <label class="form-check-label" for="editCardCompleted">Mark as Completed</label>
+                        </div>
+                        
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger me-auto" @onclick="DeleteCard">Delete</button>
+                            <button type="button" class="btn btn-secondary" @onclick="() => _showCardDetailModal = false">Cancel</button>
+                            <button type="submit" class="btn btn-primary">Save Changes</button>
+                        </div>
+                    </EditForm>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-backdrop fade show"></div>
+}
+
+@if (_showDeleteListModal)
+{
+    <div class="modal fade show" style="display: block;" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Delete List</h5>
+                    <button type="button" class="btn-close" @onclick="() => _showDeleteListModal = false"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to delete the list "@_listToDelete?.Name"?</p>
+                    <p class="text-danger">This will also delete all cards in this list. This action cannot be undone.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" @onclick="() => _showDeleteListModal = false">Cancel</button>
+                    <button type="button" class="btn btn-danger" @onclick="DeleteList">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-backdrop fade show"></div>
+}
+
+@code {
+    [Parameter]
+    public int BoardId { get; set; }
+
+    private Board? _board;
+    private bool _isLoading = true;
+    private bool _showAddListModal;
+    private bool _showAddCardModal;
+    private bool _showCardDetailModal;
+    private bool _showDeleteListModal;
+    private List _newList = new();
+    private Card _newCard = new();
+    private Card? _selectedCard;
+    private List? _listToDelete;
+    private int _selectedListId;
+    private Card? _draggedCard;
+
+    protected override async Task OnInitializedAsync()
+    {
+        // Check if user is authenticated
+        var isAuthenticated = await AuthService.IsAuthenticated();
+        if (!isAuthenticated)
+        {
+            NavigationManager.NavigateTo("/login");
+            return;
+        }
+
+        // Register SignalR event handlers
+        SignalRService.CardAdded += OnCardAdded;
+        SignalRService.CardUpdated += OnCardUpdated;
+        SignalRService.CardMoved += OnCardMoved;
+        SignalRService.CardDeleted += OnCardDeleted;
+
+        await LoadBoard();
+        await SignalRService.StartConnection(BoardId);
+    }
+
+    private async Task LoadBoard()
+    {
+        _isLoading = true;
+        try
+        {
+            _board = await BoardService.GetBoardAsync(BoardId);
+            if (_board == null)
+            {
+                NavigationManager.NavigateTo("/boards");
+            }
+        }
+        catch (Exception)
+        {
+            // Handle error
+        }
+        finally
+        {
+            _isLoading = false;
+        }
+    }
+
+    private void ShowAddCardModal(int listId)
+    {
+        _selectedListId = listId;
+        _newCard = new Card { ListId = listId };
+        _showAddCardModal = true;
+    }
+
+    private void ShowCardDetailModal(Card card)
+    {
+        _selectedCard = new Card
+        {
+            Id = card.Id,
+            Title = card.Title,
+            Description = card.Description,
+            DueDate = card.DueDate,
+            IsCompleted = card.IsCompleted,
+            ListId = card.ListId,
+            Position = card.Position
+        };
+        _showCardDetailModal = true;
+    }
+
+    private void ShowDeleteListModal(List list)
+    {
+        _listToDelete = list;
+        _showDeleteListModal = true;
+    }
+
+    private async Task AddList()
+    {
+        if (_board == null) return;
+        
+        try
+        {
+            _newList.BoardId = _board.Id;
+            var addedList = await BoardService.AddListAsync(_newList);
+            
+            if (addedList != null)
+            {
+                _board.Lists ??= new List<List>();
+                _board.Lists.Add(addedList);
+                _showAddListModal = false;
+                _newList = new List();
+            }
+        }
+        catch (Exception)
+        {
+            // Handle error
+        }
+    }
+
+    private async Task AddCard()
+    {
+        try
+        {
+            var addedCard = await CardService.CreateCardAsync(_newCard);
+            
+            if (addedCard != null && _board?.Lists != null)
+            {
+                var list = _board.Lists.FirstOrDefault(l => l.Id == _selectedListId);
+                if (list != null)
+                {
+                    list.Cards ??= new List<Card>();
+                    list.Cards.Add(addedCard);
+                    _showAddCardModal = false;
+                    _newCard = new Card();
+                }
+            }
+        }
+        catch (Exception)
+        {
+            // Handle error
+        }
+    }
+
+    private async Task UpdateCard()
+    {
+        if (_selectedCard == null) return;
+        
+        try
+        {
+            var updatedCard = await CardService.UpdateCardAsync(_selectedCard);
+            
+            if (updatedCard != null && _board?.Lists != null)
+            {
+                var list = _board.Lists.FirstOrDefault(l => l.Id == _selectedCard.ListId);
+                if (list?.Cards != null)
+                {
+                    var index = list.Cards.FindIndex(c => c.Id == _selectedCard.Id);
+                    if (index >= 0)
+                    {
+                        list.Cards[index] = _selectedCard;
+                    }
+                }
+                
+                _showCardDetailModal = false;
+                _selectedCard = null;
+            }
+        }
+        catch (Exception)
+        {
+            // Handle error
+        }
+    }
+
+    private async Task DeleteCard()
+    {
+        if (_selectedCard == null) return;
+        
+        try
+        {
+            var success = await CardService.DeleteCardAsync(_selectedCard.Id);
+            
+            if (success && _board?.Lists != null)
+            {
+                var list = _board.Lists.FirstOrDefault(l => l.Id == _selectedCard.ListId);
+                if (list?.Cards != null)
+                {
+                    var card = list.Cards.FirstOrDefault(c => c.Id == _selectedCard.Id);
+                    if (card != null)
+                    {
+                        list.Cards.Remove(card);
+                    }
+                }
+                
+                _showCardDetailModal = false;
+                _selectedCard = null;
+            }
+        }
+        catch (Exception)
+        {
+            // Handle error
+        }
+    }
+
+    private async Task DeleteList()
+    {
+        if (_listToDelete == null) return;
+        
+        try
+        {
+            var success = await BoardService.DeleteListAsync(_listToDelete.Id);
+            
+            if (success && _board?.Lists != null)
+            {
+                _board.Lists.Remove(_listToDelete);
+                _showDeleteListModal = false;
+                _listToDelete = null;
+            }
+        }
+        catch (Exception)
+        {
+            // Handle error
+        }
+    }
+
+    private void HandleDragStart(DragEventArgs e, Card card)
+    {
+        _draggedCard = card;
+    }
+
+    private async Task HandleDrop(DragEventArgs e, int targetListId)
+    {
+        if (_draggedCard == null || _draggedCard.ListId == targetListId) return;
+        
+        try
+        {
+            var movedCard = await CardService.MoveCardAsync(_draggedCard.Id, targetListId, 0);
+            
+            if (movedCard != null && _board?.Lists != null)
+            {
+                // Remove card from source list
+                var sourceList = _board.Lists.FirstOrDefault(l => l.Id == _draggedCard.ListId);
+                if (sourceList?.Cards != null)
+                {
+                    var cardToRemove = sourceList.Cards.FirstOrDefault(c => c.Id == _draggedCard.Id);
+                    if (cardToRemove != null)
+                    {
+                        sourceList.Cards.Remove(cardToRemove);
+                    }
+                }
+                
+                // Add card to target list
+                var targetList = _board.Lists.FirstOrDefault(l => l.Id == targetListId);
+                if (targetList != null)
+                {
+                    targetList.Cards ??= new List<Card>();
+                    movedCard.ListId = targetListId;
+                    targetList.Cards.Add(movedCard);
+                }
+            }
+            
+            _draggedCard = null;
+        }
+        catch (Exception)
+        {
+            // Handle error
+        }
+    }
+
+    private string GetDueDateClass(Card card)
+    {
+        if (card.IsCompleted)
+            return "completed";
+            
+        if (card.DueDate.HasValue && card.DueDate.Value < DateTime.Now)
+            return "overdue";
+            
+        return "";
+    }
+
+    // SignalR event handlers
+    private void OnCardAdded(Card card, string username)
+    {
+        if (_board?.Lists == null) return;
+        
+        var list = _board.Lists.FirstOrDefault(l => l.Id == card.ListId);
+        if (list != null)
+        {
+            list.Cards ??= new List<Card>();
+            list.Cards.Add(card);
+            StateHasChanged();
+        }
+    }
+
+    private void OnCardUpdated(Card card, string username)
+    {
+        if (_board?.Lists == null) return;
+        
+        var list = _board.Lists.FirstOrDefault(l => l.Id == card.ListId);
+        if (list?.Cards != null)
+        {
+            var index = list.Cards.FindIndex(c => c.Id == card.Id);
+            if (index >= 0)
+            {
+                list.Cards[index] = card;
+                StateHasChanged();
+            }
+        }
+    }
+
+    private void OnCardMoved(Card card, int fromListId, int toListId, string username)
+    {
+        if (_board?.Lists == null) return;
+        
+        // Remove from source list
+        var sourceList = _board.Lists.FirstOrDefault(l => l.Id == fromListId);
+        if (sourceList?.Cards != null)
+        {
+            var cardToRemove = sourceList.Cards.FirstOrDefault(c => c.Id == card.Id);
+            if (cardToRemove != null)
+            {
+                sourceList.Cards.Remove(cardToRemove);
+            }
+        }
+        
+        // Add to target list
+        var targetList = _board.Lists.FirstOrDefault(l => l.Id == toListId);
+        if (targetList != null)
+        {
+            targetList.Cards ??= new List<Card>();
+            card.ListId = toListId;
+            targetList.Cards.Add(card);
+            StateHasChanged();
+        }
+    }
+
+    private void OnCardDeleted(int cardId, string username)
+    {
+        if (_board?.Lists == null) return;
+        
+        foreach (var list in _board.Lists)
+        {
+            if (list.Cards != null)
+            {
+                var card = list.Cards.FirstOrDefault(c => c.Id == cardId);
+                if (card != null)
+                {
+                    list.Cards.Remove(card);
+                    StateHasChanged();
+                    break;
+                }
+            }
+        }
+    }
+
+    public void Dispose()
+    {
+        // Unregister SignalR event handlers
+        SignalRService.CardAdded -= OnCardAdded;
+        SignalRService.CardUpdated -= OnCardUpdated;
+        SignalRService.CardMoved -= OnCardMoved;
+        SignalRService.CardDeleted -= OnCardDeleted;
+        
+        // Stop SignalR connection
+        _ = SignalRService.StopConnection();
+    }
+}

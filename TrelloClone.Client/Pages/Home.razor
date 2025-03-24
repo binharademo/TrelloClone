@@ -1,0 +1,69 @@
+@page "/"
+@inject IAuthService AuthService
+@inject NavigationManager NavigationManager
+
+<div class="home-container">
+    <div class="hero-section text-center">
+        <h1 class="display-4">Welcome to Trello Clone</h1>
+        <p class="lead">Organize your projects and collaborate with your team in real-time</p>
+        
+        @if (!_isAuthenticated)
+        {
+            <div class="mt-4">
+                <a href="register" class="btn btn-primary btn-lg me-2">Sign Up</a>
+                <a href="login" class="btn btn-outline-primary btn-lg">Login</a>
+            </div>
+        }
+        else
+        {
+            <div class="mt-4">
+                <a href="boards" class="btn btn-primary btn-lg">Go to My Boards</a>
+            </div>
+        }
+    </div>
+
+    <div class="features-section mt-5">
+        <h2 class="text-center mb-4">Features</h2>
+        
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <i class="oi oi-list-rich display-4 mb-3"></i>
+                        <h3>Organize with Boards</h3>
+                        <p>Create boards for different projects and organize your tasks efficiently.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <i class="oi oi-people display-4 mb-3"></i>
+                        <h3>Real-time Collaboration</h3>
+                        <p>Work with your team in real-time with instant updates using SignalR.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <i class="oi oi-mobile display-4 mb-3"></i>
+                        <h3>Responsive Design</h3>
+                        <p>Access your boards from any device with our responsive design.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    private bool _isAuthenticated;
+    
+    protected override async Task OnInitializedAsync()
+    {
+        _isAuthenticated = await AuthService.IsAuthenticated();
+    }
+}

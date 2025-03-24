@@ -1,0 +1,42 @@
+@inherits LayoutComponentBase
+@inject IAuthService AuthService
+@inject NavigationManager NavigationManager
+
+<div class="page">
+    <div class="sidebar">
+        <TrelloClone.Client.Shared.NavMenu />
+    </div>
+
+    <main>
+        <div class="top-row px-4">
+            @if (isAuthenticated)
+            {
+                <button class="btn btn-link" @onclick="Logout">Logout</button>
+            }
+            else
+            {
+                <a href="login" class="btn btn-link">Login</a>
+                <a href="register" class="btn btn-link">Register</a>
+            }
+        </div>
+
+        <article class="content px-4">
+            @Body
+        </article>
+    </main>
+</div>
+
+@code {
+    private bool isAuthenticated;
+
+    protected override async Task OnInitializedAsync()
+    {
+        isAuthenticated = await AuthService.IsAuthenticated();
+    }
+
+    private async Task Logout()
+    {
+        await AuthService.Logout();
+        NavigationManager.NavigateTo("/");
+    }
+}

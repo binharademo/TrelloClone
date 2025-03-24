@@ -1,0 +1,81 @@
+[23/03/2025 22:30:31] [REQUEST 566fecb3-84f7-4699-9787-521da927cdc3] GET /?vscodeBrowserReqId=1742779831460
+[23/03/2025 22:30:31] [RESPONSE 566fecb3-84f7-4699-9787-521da927cdc3] 404 (1,4939ms)
+Response Body: [Content too large to log]
+[23/03/2025 22:31:09] [REQUEST 0606dcd1-89bb-47b7-b04d-b70b66f58136] GET /?vscodeBrowserReqId=1742779869651
+[23/03/2025 22:31:09] [RESPONSE 0606dcd1-89bb-47b7-b04d-b70b66f58136] 404 (0,5599ms)
+Response Body: [Content too large to log]
+[23/03/2025 22:33:37] [REQUEST dd5bc9de-b4b0-46b5-b64e-dc1b5657f9a1] GET /api/auth/hash?password=password123
+[23/03/2025 22:33:37] [RESPONSE dd5bc9de-b4b0-46b5-b64e-dc1b5657f9a1] 200 (48,4755ms)
+Response Body: 75K3eLr+dx6JJFuJ7LwIpEpOFmwGZZkRiB84PURz6U8=
+[23/03/2025 22:35:24] [REQUEST d6ba3e3d-b71f-46dc-825f-8ef73428bad6] GET /api/auth/hash?password=password123
+[23/03/2025 22:35:24] [RESPONSE d6ba3e3d-b71f-46dc-825f-8ef73428bad6] 200 (42,1993ms)
+Response Body: 75K3eLr+dx6JJFuJ7LwIpEpOFmwGZZkRiB84PURz6U8=
+[23/03/2025 22:35:36] [REQUEST dbb97bfd-5808-423c-86dd-35ea9d59df13] GET //api/health
+[23/03/2025 22:35:36] [RESPONSE dbb97bfd-5808-423c-86dd-35ea9d59df13] 404 (0,5116ms)
+Response Body: [Content too large to log]
+[23/03/2025 22:35:46] [REQUEST 68dfbc2f-dbb9-4107-833d-8f17d7e0b84c] GET //api/health
+[23/03/2025 22:35:46] [RESPONSE 68dfbc2f-dbb9-4107-833d-8f17d7e0b84c] 404 (0,4579ms)
+Response Body: [Content too large to log]
+[23/03/2025 22:36:02] [REQUEST bd4f2eae-2a57-4402-b2b0-3bc3dbb6e717] GET /api/auth/hash?password=password123
+[23/03/2025 22:36:02] [RESPONSE bd4f2eae-2a57-4402-b2b0-3bc3dbb6e717] 200 (4,8979ms)
+Response Body: 75K3eLr+dx6JJFuJ7LwIpEpOFmwGZZkRiB84PURz6U8=
+[23/03/2025 22:36:03] [REQUEST e0d59954-4367-46e1-9da7-323d4c798b01] GET //api/health
+[23/03/2025 22:36:03] [RESPONSE e0d59954-4367-46e1-9da7-323d4c798b01] 404 (0,4188ms)
+Response Body: [Content too large to log]
+[23/03/2025 22:36:13] [REQUEST 6d4cc5c9-5c08-4107-9d70-3128360c4776] GET //api/health
+[23/03/2025 22:36:13] [RESPONSE 6d4cc5c9-5c08-4107-9d70-3128360c4776] 404 (0,5374ms)
+Response Body: [Content too large to log]
+[23/03/2025 22:36:21] [REQUEST 1edc84be-e50a-4470-8d92-fda56064e596] GET //api/health
+[23/03/2025 22:36:21] [RESPONSE 1edc84be-e50a-4470-8d92-fda56064e596] 404 (0,3889ms)
+Response Body: [Content too large to log]
+[23/03/2025 22:36:21] [REQUEST 467c6a35-cd68-4a55-b750-e2ef1cd3d201] GET /favicon.ico
+[23/03/2025 22:36:21] [RESPONSE 467c6a35-cd68-4a55-b750-e2ef1cd3d201] 404 (0,4237ms)
+Response Body: [Content too large to log]
+[23/03/2025 22:39:14] [REQUEST b7b30552-21e6-4a79-a6cd-faa2d71db22b] GET /api/health
+[23/03/2025 22:39:14] [RESPONSE b7b30552-21e6-4a79-a6cd-faa2d71db22b] 200 (60,1553ms)
+Response Body: {"status":"healthy","message":"API is running","timestamp":"2025-03-24T01:39:14.9481453Z"}
+[23/03/2025 22:40:43] [REQUEST 2425af72-d809-4cf7-a7ee-2aa39a20a77e] POST /api/auth/login
+[23/03/2025 22:40:43] [RESPONSE 2425af72-d809-4cf7-a7ee-2aa39a20a77e] 200 (505,0143ms)
+Response Body: {"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZW1haWwiOiJ0ZXN0QGV4YW1wbGUuY29tIiwianRpIjoiMzQ5ZjkxM2UtNThjOS00MTE3LWE5OTItMjhiNzQyZWQzMTE4IiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZSI6InRlc3R1c2VyIiwiZXhwIjoxNzQzMzg1MjQzLCJpc3MiOiJUcmVsbG9DbG9uZUFwaSIsImF1ZCI6IlRyZWxsb0Nsb25lQ2xpZW50In0.WzoxGsoSybaeyWwYA6YVUeuOTGsmfmlsxphpXZDcX7I","userId":1,"username":"testuser","email":"test@example.com"}
+[23/03/2025 22:41:13] [REQUEST c8084a25-b022-4874-9dc4-8f70e61ec570] GET /api/auth/hash?password=password123
+[23/03/2025 22:41:13] [RESPONSE c8084a25-b022-4874-9dc4-8f70e61ec570] 200 (7,2385ms)
+Response Body: 75K3eLr+dx6JJFuJ7LwIpEpOFmwGZZkRiB84PURz6U8=
+[23/03/2025 22:41:29] [REQUEST 1d7dd935-8b21-45c6-9f5f-7644c36d543a] POST /api/auth/login
+[23/03/2025 22:41:29] [RESPONSE 1d7dd935-8b21-45c6-9f5f-7644c36d543a] 200 (69,3361ms)
+Response Body: {"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZW1haWwiOiJ0ZXN0QGV4YW1wbGUuY29tIiwianRpIjoiMDAwMmNmNzQtNzZmNy00OTljLTliMDQtOTk2YmQyOTdjNGYzIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZSI6InRlc3R1c2VyIiwiZXhwIjoxNzQzMzg1Mjg5LCJpc3MiOiJUcmVsbG9DbG9uZUFwaSIsImF1ZCI6IlRyZWxsb0Nsb25lQ2xpZW50In0.lKwsxl5i6DuRLUhnVMTSOyATnngrjR3jRrKsqz-go14","userId":1,"username":"testuser","email":"test@example.com"}
+[23/03/2025 22:41:50] [REQUEST 6213da4c-1305-4098-8d3b-8faae10dca59] POST /api/auth/login
+[23/03/2025 22:41:50] [RESPONSE 6213da4c-1305-4098-8d3b-8faae10dca59] 200 (4,8399ms)
+Response Body: {"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZW1haWwiOiJ0ZXN0QGV4YW1wbGUuY29tIiwianRpIjoiM2JjZTMxMTAtMGNkNS00YmRiLTgzM2MtNDQ0OWYxNjZmYzFiIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZSI6InRlc3R1c2VyIiwiZXhwIjoxNzQzMzg1MzEwLCJpc3MiOiJUcmVsbG9DbG9uZUFwaSIsImF1ZCI6IlRyZWxsb0Nsb25lQ2xpZW50In0.3Fj297Wo34ml8_qgLJf-JWW5y5JwoNjOoRG133TQC8w","userId":1,"username":"testuser","email":"test@example.com"}
+[23/03/2025 22:47:50] [REQUEST 673f0b90-fdf1-4515-b59e-4a3d8b3e3b3d] GET /api/health
+[23/03/2025 22:47:50] [RESPONSE 673f0b90-fdf1-4515-b59e-4a3d8b3e3b3d] 200 (39,3036ms)
+Response Body: {"status":"healthy","message":"API is running","timestamp":"2025-03-24T01:47:50.8284702Z"}
+[23/03/2025 22:49:10] [REQUEST e677f9cb-4266-4fa5-8d80-47ede43c263d] GET /api/health
+[23/03/2025 22:49:10] [RESPONSE e677f9cb-4266-4fa5-8d80-47ede43c263d] 200 (1,7155ms)
+Response Body: {"status":"healthy","message":"API is running","timestamp":"2025-03-24T01:49:10.7976734Z"}
+[23/03/2025 22:49:24] [REQUEST 6a8ab801-a556-4ac7-a4eb-a16e9c8f6461] GET /api/health
+[23/03/2025 22:49:24] [RESPONSE 6a8ab801-a556-4ac7-a4eb-a16e9c8f6461] 200 (1,2187ms)
+Response Body: {"status":"healthy","message":"API is running","timestamp":"2025-03-24T01:49:24.063763Z"}
+[23/03/2025 22:49:29] [REQUEST e5c9a07f-0d7c-410d-b334-bfeb3dca09d8] GET /api/auth/hash?password=password123
+[23/03/2025 22:49:29] [RESPONSE e5c9a07f-0d7c-410d-b334-bfeb3dca09d8] 200 (23,1287ms)
+Response Body: 75K3eLr+dx6JJFuJ7LwIpEpOFmwGZZkRiB84PURz6U8=
+[23/03/2025 22:49:31] [REQUEST 01e81cef-870d-4546-9914-7c3c04efec01] GET /api/health
+[23/03/2025 22:49:31] [RESPONSE 01e81cef-870d-4546-9914-7c3c04efec01] 200 (0,8852ms)
+Response Body: {"status":"healthy","message":"API is running","timestamp":"2025-03-24T01:49:31.7324499Z"}
+[23/03/2025 22:49:36] [REQUEST d675eb20-87be-4f83-8a43-79721b547ee0] GET /api/health
+[23/03/2025 22:49:36] [RESPONSE d675eb20-87be-4f83-8a43-79721b547ee0] 200 (1,0283ms)
+Response Body: {"status":"healthy","message":"API is running","timestamp":"2025-03-24T01:49:36.608066Z"}
+[23/03/2025 23:04:20] [REQUEST 9dfd780c-484c-48ac-9704-6a81f8743eb6] POST /api/auth/login
+[23/03/2025 23:04:20] [RESPONSE 9dfd780c-484c-48ac-9704-6a81f8743eb6] 200 (239,3148ms)
+Response Body: {"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZW1haWwiOiJ0ZXN0QGV4YW1wbGUuY29tIiwianRpIjoiNjhlYjcxY2QtNjM1NS00ODdmLWFlOWItZmIzNGMzMDc1OGI5IiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZSI6InRlc3R1c2VyIiwiZXhwIjoxNzQzMzg2NjYwLCJpc3MiOiJUcmVsbG9DbG9uZUFwaSIsImF1ZCI6IlRyZWxsb0Nsb25lQ2xpZW50In0.rgzMV3j9KVxBKnldXLwlrZCyhX3HDqtBrLn8IJq_Oe4","userId":1,"username":"testuser","email":"test@example.com"}
+[23/03/2025 23:04:29] [REQUEST b0f9666b-214b-47cd-b0f6-3a0c5af04ea0] GET /api/health
+[23/03/2025 23:04:29] [RESPONSE b0f9666b-214b-47cd-b0f6-3a0c5af04ea0] 200 (12,7023ms)
+Response Body: {"status":"healthy","message":"API is running","timestamp":"2025-03-24T02:04:29.6299635Z"}
+[24/03/2025 07:32:26] [REQUEST e47fc6f9-cf8d-4b03-8aaa-31b50e3a595d] POST /api/auth/login
+[24/03/2025 07:32:26] [RESPONSE e47fc6f9-cf8d-4b03-8aaa-31b50e3a595d] 200 (240,8546ms)
+Response Body: {"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZW1haWwiOiJ0ZXN0QGV4YW1wbGUuY29tIiwianRpIjoiMWRlOWYwNTgtY2FmMS00OTY2LWI2OTUtODlhMWNmODRkZWNkIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZSI6InRlc3R1c2VyIiwiZXhwIjoxNzQzNDE3MTQ2LCJpc3MiOiJUcmVsbG9DbG9uZUFwaSIsImF1ZCI6IlRyZWxsb0Nsb25lQ2xpZW50In0.u8wOrswlww-ZzUa4kcKfV7YsoqWg7tV4jLZ5-An_jMQ","userId":1,"username":"testuser","email":"test@example.com"}
+[24/03/2025 07:34:08] [REQUEST f16b9af8-213e-459b-b353-3b702598f27b] POST /api/auth/login
+[24/03/2025 07:34:08] [RESPONSE f16b9af8-213e-459b-b353-3b702598f27b] 200 (66,7044ms)
+Response Body: {"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZW1haWwiOiJ0ZXN0QGV4YW1wbGUuY29tIiwianRpIjoiYmJlYTQxYjctMzVlNi00MDZlLTk4ZjgtODhmZjIzODg0NmMzIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZSI6InRlc3R1c2VyIiwiZXhwIjoxNzQzNDE3MjQ4LCJpc3MiOiJUcmVsbG9DbG9uZUFwaSIsImF1ZCI6IlRyZWxsb0Nsb25lQ2xpZW50In0.30CtVZ-E6UB5eszJyuJSrOCEKnSW0Vqwz9OYo_flSn0","userId":1,"username":"testuser","email":"test@example.com"}
+[24/03/2025 07:34:41] [REQUEST fb596374-ef42-466c-9f7f-0bc8f11151bc] POST /api/auth/login
+[24/03/2025 07:34:41] [RESPONSE fb596374-ef42-466c-9f7f-0bc8f11151bc] 200 (3,8234ms)
+Response Body: {"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZW1haWwiOiJ0ZXN0QGV4YW1wbGUuY29tIiwianRpIjoiNDI5NTIzOTQtODZiMi00YmU5LTljYjAtYjNlZWYxOGE2MTc1IiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZSI6InRlc3R1c2VyIiwiZXhwIjoxNzQzNDE3MjgxLCJpc3MiOiJUcmVsbG9DbG9uZUFwaSIsImF1ZCI6IlRyZWxsb0Nsb25lQ2xpZW50In0.k2WB1mjuAqzfzJwDwR_U5J48By2xxmZnQ94qFxkTb3c","userId":1,"username":"testuser","email":"test@example.com"}

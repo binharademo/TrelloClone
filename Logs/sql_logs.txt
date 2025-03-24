@@ -1,0 +1,76 @@
+[23/03/2025 22:29:09] [SQL] info: 23/03/2025 22:29:09.640 RelationalEventId.CommandExecuted[20101] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Executed DbCommand (11ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT COUNT(*) FROM "sqlite_master" WHERE "type" = 'table' AND "rootpage" IS NOT NULL;
+[23/03/2025 22:33:12] [SQL] info: 23/03/2025 22:33:12.848 RelationalEventId.CommandExecuted[20101] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Executed DbCommand (10ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT COUNT(*) FROM "sqlite_master" WHERE "type" = 'table' AND "rootpage" IS NOT NULL;
+[23/03/2025 22:34:24] [SQL] info: 23/03/2025 22:34:24.054 RelationalEventId.CommandExecuted[20101] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Executed DbCommand (11ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT COUNT(*) FROM "sqlite_master" WHERE "type" = 'table' AND "rootpage" IS NOT NULL;
+[23/03/2025 22:38:21] [SQL] info: 23/03/2025 22:38:21.683 RelationalEventId.CommandExecuted[20101] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Executed DbCommand (10ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT COUNT(*) FROM "sqlite_master" WHERE "type" = 'table' AND "rootpage" IS NOT NULL;
+[23/03/2025 22:40:43] [SQL] info: 23/03/2025 22:40:43.485 RelationalEventId.CommandExecuted[20101] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Executed DbCommand (5ms) [Parameters=[@__model_Email_0='test@example.com' (Size = 16)], CommandType='Text', CommandTimeout='30']
+      SELECT "u"."Id", "u"."Email", "u"."PasswordHash", "u"."Username"
+      FROM "Users" AS "u"
+      WHERE "u"."Email" = @__model_Email_0
+      LIMIT 1
+[23/03/2025 22:41:29] [SQL] info: 23/03/2025 22:41:29.312 RelationalEventId.CommandExecuted[20101] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Executed DbCommand (0ms) [Parameters=[@__model_Email_0='test@example.com' (Size = 16)], CommandType='Text', CommandTimeout='30']
+      SELECT "u"."Id", "u"."Email", "u"."PasswordHash", "u"."Username"
+      FROM "Users" AS "u"
+      WHERE "u"."Email" = @__model_Email_0
+      LIMIT 1
+[23/03/2025 22:41:50] [SQL] info: 23/03/2025 22:41:50.557 RelationalEventId.CommandExecuted[20101] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Executed DbCommand (0ms) [Parameters=[@__model_Email_0='test@example.com' (Size = 16)], CommandType='Text', CommandTimeout='30']
+      SELECT "u"."Id", "u"."Email", "u"."PasswordHash", "u"."Username"
+      FROM "Users" AS "u"
+      WHERE "u"."Email" = @__model_Email_0
+      LIMIT 1
+[23/03/2025 22:42:36] [SQL] info: 23/03/2025 22:42:36.873 RelationalEventId.CommandExecuted[20101] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Executed DbCommand (10ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT COUNT(*) FROM "sqlite_master" WHERE "type" = 'table' AND "rootpage" IS NOT NULL;
+[23/03/2025 22:47:04] [SQL] info: 23/03/2025 22:47:04.699 RelationalEventId.CommandExecuted[20101] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Executed DbCommand (9ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT COUNT(*) FROM "sqlite_master" WHERE "type" = 'table' AND "rootpage" IS NOT NULL;
+[23/03/2025 23:03:45] [SQL] info: 23/03/2025 23:03:45.030 RelationalEventId.CommandExecuted[20101] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Executed DbCommand (10ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT COUNT(*) FROM "sqlite_master" WHERE "type" = 'table' AND "rootpage" IS NOT NULL;
+[23/03/2025 23:03:45] [SQL] info: 23/03/2025 23:03:45.257 RelationalEventId.CommandExecuted[20101] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT EXISTS (
+          SELECT 1
+          FROM "Users" AS "u")
+[23/03/2025 23:04:20] [SQL] info: 23/03/2025 23:04:20.436 RelationalEventId.CommandExecuted[20101] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Executed DbCommand (4ms) [Parameters=[@__model_Email_0='test@example.com' (Size = 16)], CommandType='Text', CommandTimeout='30']
+      SELECT "u"."Id", "u"."Email", "u"."PasswordHash", "u"."Username"
+      FROM "Users" AS "u"
+      WHERE "u"."Email" = @__model_Email_0
+      LIMIT 1
+[23/03/2025 23:06:44] [SQL] info: 23/03/2025 23:06:44.304 RelationalEventId.CommandExecuted[20101] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Executed DbCommand (10ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT COUNT(*) FROM "sqlite_master" WHERE "type" = 'table' AND "rootpage" IS NOT NULL;
+[23/03/2025 23:06:44] [SQL] info: 23/03/2025 23:06:44.560 RelationalEventId.CommandExecuted[20101] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT EXISTS (
+          SELECT 1
+          FROM "Users" AS "u")
+[24/03/2025 07:32:26] [SQL] info: 24/03/2025 07:32:26.284 RelationalEventId.CommandExecuted[20101] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Executed DbCommand (6ms) [Parameters=[@__model_Email_0='test@example.com' (Size = 16)], CommandType='Text', CommandTimeout='30']
+      SELECT "u"."Id", "u"."Email", "u"."PasswordHash", "u"."Username"
+      FROM "Users" AS "u"
+      WHERE "u"."Email" = @__model_Email_0
+      LIMIT 1
+[24/03/2025 07:34:08] [SQL] info: 24/03/2025 07:34:08.080 RelationalEventId.CommandExecuted[20101] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Executed DbCommand (0ms) [Parameters=[@__model_Email_0='test@example.com' (Size = 16)], CommandType='Text', CommandTimeout='30']
+      SELECT "u"."Id", "u"."Email", "u"."PasswordHash", "u"."Username"
+      FROM "Users" AS "u"
+      WHERE "u"."Email" = @__model_Email_0
+      LIMIT 1
+[24/03/2025 07:34:41] [SQL] info: 24/03/2025 07:34:41.929 RelationalEventId.CommandExecuted[20101] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Executed DbCommand (0ms) [Parameters=[@__model_Email_0='test@example.com' (Size = 16)], CommandType='Text', CommandTimeout='30']
+      SELECT "u"."Id", "u"."Email", "u"."PasswordHash", "u"."Username"
+      FROM "Users" AS "u"
+      WHERE "u"."Email" = @__model_Email_0
+      LIMIT 1

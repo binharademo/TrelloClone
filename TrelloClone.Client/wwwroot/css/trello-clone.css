@@ -1,0 +1,120 @@
+/* Trello Clone Custom Styles */
+
+/* Board Page Styles */
+.board-container {
+    padding: 20px;
+    height: calc(100vh - 120px);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.board-header {
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.board-content {
+    flex: 1;
+    overflow-x: auto;
+    padding-bottom: 20px;
+}
+
+.lists-container {
+    display: flex;
+    height: 100%;
+    gap: 15px;
+}
+
+.list-column {
+    background-color: #f0f0f0;
+    border-radius: 5px;
+    width: 280px;
+    min-width: 280px;
+    max-height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.list-header {
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.list-cards {
+    padding: 10px;
+    flex: 1;
+    overflow-y: auto;
+}
+
+.card {
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-due-date {
+    display: inline-block;
+    padding: 2px 5px;
+    border-radius: 3px;
+    background-color: #f8f9fa;
+    font-size: 0.8rem;
+}
+
+.card-due-date.overdue {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.card-due-date.completed {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+/* Home Page Styles */
+.home-container {
+    padding: 30px 15px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.hero-section {
+    padding: 60px 0;
+}
+
+/* Auth Pages Styles */
+.auth-container {
+    max-width: 500px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .lists-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .list-column {
+        width: 100%;
+        margin-bottom: 15px;
+    }
+}
+
+/* Drag and Drop Styles */
+.card.dragging {
+    opacity: 0.5;
+}
+
+.list-cards.drag-over {
+    background-color: #e6f7ff;
+}

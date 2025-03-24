@@ -2,9 +2,9 @@ using System;
 using System.IO;
 using System.Diagnostics;
 
-class DiagnoseErrors
+public class DiagnoseErrors
 {
-    static void Main()
+    public static void RunDiagnostics()
     {
         var process = new Process
         {

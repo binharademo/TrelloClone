@@ -85,3 +85,9 @@ Response Body: {"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZW
 [24/03/2025 10:47:18] [REQUEST 54da50ab-ea0b-43de-837f-715725fc05ff] POST /api/auth/login
 [24/03/2025 10:47:18] [RESPONSE 54da50ab-ea0b-43de-837f-715725fc05ff] 200 (52,0863ms)
 Response Body: {"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZW1haWwiOiJ0ZXN0QGV4YW1wbGUuY29tIiwianRpIjoiMDBmOWFhMTEtMTc0MC00YWNhLWI3OTktN2Y3OWU5ZDQ1ODRlIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZSI6InRlc3R1c2VyIiwiZXhwIjoxNzQzNDI4ODM4LCJpc3MiOiJUcmVsbG9DbG9uZUFwaSIsImF1ZCI6IlRyZWxsb0Nsb25lQ2xpZW50In0.bopzrRYJ_eK13yy7upeicSNF5uAd9nbe0hGU47zqLhY","userId":1,"username":"testuser","email":"test@example.com"}
+[24/03/2025 10:49:21] [REQUEST f312813e-bc94-4f2d-b6a9-61162ea4ece2] GET /api/health
+[24/03/2025 10:49:21] [RESPONSE f312813e-bc94-4f2d-b6a9-61162ea4ece2] 200 (9,2372ms)
+Response Body: {"status":"healthy","message":"API is running","timestamp":"2025-03-24T13:49:21.7151285Z"}
+[24/03/2025 10:49:23] [REQUEST 113df082-65e5-4e8e-a306-cc3ecb8fcbb1] POST /api/auth/login
+[24/03/2025 10:49:23] [RESPONSE 113df082-65e5-4e8e-a306-cc3ecb8fcbb1] 200 (3,2274ms)
+Response Body: {"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZW1haWwiOiJ0ZXN0QGV4YW1wbGUuY29tIiwianRpIjoiNzYzZjNhMmEtNzY0Zi00Y2IyLWJiZGUtNDU4YjUxYjJlMDVhIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZSI6InRlc3R1c2VyIiwiZXhwIjoxNzQzNDI4OTYzLCJpc3MiOiJUcmVsbG9DbG9uZUFwaSIsImF1ZCI6IlRyZWxsb0Nsb25lQ2xpZW50In0.58mQRz2WAiqt7baMQqOR0VwtKVt5G6CLAndaToX9SdA","userId":1,"username":"testuser","email":"test@example.com"}

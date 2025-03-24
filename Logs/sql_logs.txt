@@ -94,3 +94,9 @@
       FROM "Users" AS "u"
       WHERE "u"."Email" = @__model_Email_0
       LIMIT 1
+[24/03/2025 10:49:23] [SQL] info: 24/03/2025 10:49:23.753 RelationalEventId.CommandExecuted[20101] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Executed DbCommand (0ms) [Parameters=[@__model_Email_0='test@example.com' (Size = 16)], CommandType='Text', CommandTimeout='30']
+      SELECT "u"."Id", "u"."Email", "u"."PasswordHash", "u"."Username"
+      FROM "Users" AS "u"
+      WHERE "u"."Email" = @__model_Email_0
+      LIMIT 1

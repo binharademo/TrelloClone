@@ -82,3 +82,6 @@ Response Body: {"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZW
 [24/03/2025 10:38:58] [REQUEST e9822caa-bc49-4733-afba-1af8cae5ef10] POST /api/auth/login
 [24/03/2025 10:38:58] [RESPONSE e9822caa-bc49-4733-afba-1af8cae5ef10] 200 (249,883ms)
 Response Body: {"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZW1haWwiOiJ0ZXN0QGV4YW1wbGUuY29tIiwianRpIjoiMzJlMjA4MGQtYzc0Ni00NTViLWIwN2MtMDAwNjA4YzViY2ZmIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZSI6InRlc3R1c2VyIiwiZXhwIjoxNzQzNDI4MzM4LCJpc3MiOiJUcmVsbG9DbG9uZUFwaSIsImF1ZCI6IlRyZWxsb0Nsb25lQ2xpZW50In0.jOK8Y1_Zw06F9puepAwhgqQAz0nFVD4OrEg9oU4-REg","userId":1,"username":"testuser","email":"test@example.com"}
+[24/03/2025 10:47:18] [REQUEST 54da50ab-ea0b-43de-837f-715725fc05ff] POST /api/auth/login
+[24/03/2025 10:47:18] [RESPONSE 54da50ab-ea0b-43de-837f-715725fc05ff] 200 (52,0863ms)
+Response Body: {"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZW1haWwiOiJ0ZXN0QGV4YW1wbGUuY29tIiwianRpIjoiMDBmOWFhMTEtMTc0MC00YWNhLWI3OTktN2Y3OWU5ZDQ1ODRlIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZSI6InRlc3R1c2VyIiwiZXhwIjoxNzQzNDI4ODM4LCJpc3MiOiJUcmVsbG9DbG9uZUFwaSIsImF1ZCI6IlRyZWxsb0Nsb25lQ2xpZW50In0.bopzrRYJ_eK13yy7upeicSNF5uAd9nbe0hGU47zqLhY","userId":1,"username":"testuser","email":"test@example.com"}

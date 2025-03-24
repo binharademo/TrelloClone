@@ -2429,11 +2429,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Projetos\\DemoClaude\\TreloCSharp\\TrelloClone.Client\\TrelloClone.Client.csproj",
+      "projectUniqueName": "C:\\Projetos\\git\\tc\\TrelloClone\\TrelloClone.Client\\TrelloClone.Client.csproj",
       "projectName": "TrelloClone.Client",
-      "projectPath": "C:\\Projetos\\DemoClaude\\TreloCSharp\\TrelloClone.Client\\TrelloClone.Client.csproj",
+      "projectPath": "C:\\Projetos\\git\\tc\\TrelloClone\\TrelloClone.Client\\TrelloClone.Client.csproj",
       "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-      "outputPath": "C:\\Projetos\\DemoClaude\\TreloCSharp\\TrelloClone.Client\\obj\\",
+      "outputPath": "C:\\Projetos\\git\\tc\\TrelloClone\\TrelloClone.Client\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

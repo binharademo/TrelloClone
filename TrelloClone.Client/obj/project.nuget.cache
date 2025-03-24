@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "ogJJHw5BZ3s=",
+  "dgSpecHash": "Ds8otZEqYHs=",
   "success": true,
-  "projectFilePath": "C:\\Projetos\\DemoClaude\\TreloCSharp\\TrelloClone.Client\\TrelloClone.Client.csproj",
+  "projectFilePath": "C:\\Projetos\\git\\tc\\TrelloClone\\TrelloClone.Client\\TrelloClone.Client.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Administrator\\.nuget\\packages\\microsoft.aspnetcore.authorization\\9.0.3\\microsoft.aspnetcore.authorization.9.0.3.nupkg.sha512",
     "C:\\Users\\Administrator\\.nuget\\packages\\microsoft.aspnetcore.components\\9.0.3\\microsoft.aspnetcore.components.9.0.3.nupkg.sha512",

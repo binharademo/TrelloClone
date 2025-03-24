@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Projetos\\DemoClaude\\TreloCSharp\\TrelloClone\\TrelloClone.csproj": {}
+    "C:\\Projetos\\git\\tc\\TrelloClone\\TrelloClone\\TrelloClone.csproj": {}
   },
   "projects": {
-    "C:\\Projetos\\DemoClaude\\TreloCSharp\\TrelloClone\\TrelloClone.csproj": {
+    "C:\\Projetos\\git\\tc\\TrelloClone\\TrelloClone\\TrelloClone.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Projetos\\DemoClaude\\TreloCSharp\\TrelloClone\\TrelloClone.csproj",
+        "projectUniqueName": "C:\\Projetos\\git\\tc\\TrelloClone\\TrelloClone\\TrelloClone.csproj",
         "projectName": "TrelloClone",
-        "projectPath": "C:\\Projetos\\DemoClaude\\TreloCSharp\\TrelloClone\\TrelloClone.csproj",
+        "projectPath": "C:\\Projetos\\git\\tc\\TrelloClone\\TrelloClone\\TrelloClone.csproj",
         "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-        "outputPath": "C:\\Projetos\\DemoClaude\\TreloCSharp\\TrelloClone\\obj\\",
+        "outputPath": "C:\\Projetos\\git\\tc\\TrelloClone\\TrelloClone\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

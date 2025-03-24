@@ -67,3 +67,38 @@ LIMIT 1" (0723d8ff)
 2025-03-24T07:34:41.9309500-03:00 0HNBANSLQVO79:00000002 [INF] Executed action "TrelloClone.Controllers.AuthController.Login (TrelloClone)" in 3.2289ms (afa2e885)
 2025-03-24T07:34:41.9310028-03:00 0HNBANSLQVO79:00000002 [INF] Executed endpoint '"TrelloClone.Controllers.AuthController.Login (TrelloClone)"' (99874f2b)
 2025-03-24T07:34:41.9315938-03:00 0HNBANSLQVO79:00000002 [INF] Request finished "HTTP/1.1" "POST" "http"://"localhost:5022""""/api/auth/login""" - 200 null "application/json; charset=utf-8" 6.1798ms (74253ad3)
+2025-03-24T10:38:25.9920249-03:00  [WRN] Sensitive data logging is enabled. Log entries and exception messages may include sensitive application data; this mode should only be enabled during development. (4007092b)
+2025-03-24T10:38:26.1451140-03:00  [INF] Executed DbCommand ("13"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT COUNT(*) FROM \"sqlite_master\" WHERE \"type\" = 'table' AND \"rootpage\" IS NOT NULL;" (0723d8ff)
+2025-03-24T10:38:26.4076066-03:00  [INF] Executed DbCommand ("1"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT EXISTS (
+    SELECT 1
+    FROM \"Users\" AS \"u\")" (0723d8ff)
+2025-03-24T10:38:26.4293671-03:00  [INF] User profile is available. Using '"C:\Users\Administrator\AppData\Local\ASP.NET\DataProtection-Keys"' as key repository and Windows DPAPI to encrypt keys at rest. (7ac5e29c)
+2025-03-24T10:38:26.4800075-03:00  [INF] Now listening on: "http://localhost:5022" (d826f4b8)
+2025-03-24T10:38:26.4826423-03:00  [INF] Application started. Press Ctrl+C to shut down. (dcaefe54)
+2025-03-24T10:38:26.4829502-03:00  [INF] Hosting environment: "Development" (bc5a1a4e)
+2025-03-24T10:38:26.4829891-03:00  [INF] Content root path: "C:\Projetos\git\tc\TrelloClone\TrelloClone" (cc26f24e)
+2025-03-24T10:38:58.2348477-03:00 0HNBAR4TBICKG:00000001 [INF] Request starting "HTTP/1.1" "OPTIONS" "http"://"localhost:5022""""/api/auth/login""" - null null (d509f86a)
+2025-03-24T10:38:58.2594387-03:00 0HNBAR4TBICKG:00000001 [INF] CORS policy execution successful. (5409d6ef)
+2025-03-24T10:38:58.2633186-03:00 0HNBAR4TBICKG:00000001 [INF] Request finished "HTTP/1.1" "OPTIONS" "http"://"localhost:5022""""/api/auth/login""" - 204 null null 29.6083ms (74253ad3)
+2025-03-24T10:38:58.2665827-03:00 0HNBAR4TBICKG:00000002 [INF] Request starting "HTTP/1.1" "POST" "http"://"localhost:5022""""/api/auth/login""" - "application/json; charset=utf-8" 53 (d509f86a)
+2025-03-24T10:38:58.2692350-03:00 0HNBAR4TBICKG:00000002 [INF] CORS policy execution successful. (5409d6ef)
+2025-03-24T10:38:58.3207369-03:00 0HNBAR4TBICKG:00000002 [INF] Executing endpoint '"TrelloClone.Controllers.AuthController.Login (TrelloClone)"' (500cc934)
+2025-03-24T10:38:58.3338217-03:00 0HNBAR4TBICKG:00000002 [INF] Route matched with "{action = \"Login\", controller = \"Auth\"}". Executing controller action with signature "System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(TrelloClone.Models.LoginModel)" on controller "TrelloClone.Controllers.AuthController" ("TrelloClone"). (122b2fdf)
+2025-03-24T10:38:58.3686052-03:00 0HNBAR4TBICKG:00000002 [INF] Login attempt for email: test@example.com at 24/03/2025 10:38:58 (4b372884)
+2025-03-24T10:38:58.3699834-03:00 0HNBAR4TBICKG:00000002 [INF] Attempting login for user with email: test@example.com (11a59f63)
+2025-03-24T10:38:58.4614501-03:00 0HNBAR4TBICKG:00000002 [INF] Executed DbCommand ("4"ms) [Parameters=["@__model_Email_0='test@example.com' (Size = 16)"], CommandType='Text', CommandTimeout='30']"
+""SELECT \"u\".\"Id\", \"u\".\"Email\", \"u\".\"PasswordHash\", \"u\".\"Username\"
+FROM \"Users\" AS \"u\"
+WHERE \"u\".\"Email\" = @__model_Email_0
+LIMIT 1" (0723d8ff)
+2025-03-24T10:38:58.5094709-03:00 0HNBAR4TBICKG:00000002 [INF] User found: ID=1, Email=test@example.com, Username=testuser (77f3fe49)
+2025-03-24T10:38:58.5095568-03:00 0HNBAR4TBICKG:00000002 [INF] Verifying password for user: test@example.com (dc1a9664)
+2025-03-24T10:38:58.5147512-03:00 0HNBAR4TBICKG:00000002 [INF] Password verified successfully for user: test@example.com (107504ec)
+2025-03-24T10:38:58.5561968-03:00 0HNBAR4TBICKG:00000002 [INF] JWT token generated for user: test@example.com (8b777e7a)
+2025-03-24T10:38:58.5564872-03:00 0HNBAR4TBICKG:00000002 [INF] Login successful for email: test@example.com (40bd0222)
+2025-03-24T10:38:58.5602320-03:00 0HNBAR4TBICKG:00000002 [INF] Executing "OkObjectResult", writing value of type '"TrelloClone.Models.AuthResponse"'. (605b4265)
+2025-03-24T10:38:58.5681116-03:00 0HNBAR4TBICKG:00000002 [INF] Executed action "TrelloClone.Controllers.AuthController.Login (TrelloClone)" in 231.4362ms (afa2e885)
+2025-03-24T10:38:58.5682053-03:00 0HNBAR4TBICKG:00000002 [INF] Executed endpoint '"TrelloClone.Controllers.AuthController.Login (TrelloClone)"' (99874f2b)
+2025-03-24T10:38:58.5722602-03:00 0HNBAR4TBICKG:00000002 [INF] Request finished "HTTP/1.1" "POST" "http"://"localhost:5022""""/api/auth/login""" - 200 null "application/json; charset=utf-8" 305.6269ms (74253ad3)

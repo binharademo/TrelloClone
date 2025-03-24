@@ -84,6 +84,24 @@ The frontend provides several diagnostic tools:
 
 3. The API will be available at: http://localhost:5022
 
+### API Documentation with Swagger
+
+The API includes Swagger UI for interactive documentation and testing:
+
+1. Start the API server as described above
+2. Access Swagger UI at: http://localhost:5022/swagger
+3. Swagger provides:
+   - Interactive documentation for all API endpoints
+   - Request/response schema information
+   - The ability to test API endpoints directly from the browser
+   - Authentication support for protected endpoints
+
+Swagger is particularly useful for:
+- Understanding the available API endpoints
+- Testing API functionality without needing a separate client
+- Exploring the data models and request formats
+- Debugging API issues during development
+
 ### Running the Client
 
 1. Navigate to the Client project directory:

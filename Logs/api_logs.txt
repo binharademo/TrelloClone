@@ -91,3 +91,12 @@ Response Body: {"status":"healthy","message":"API is running","timestamp":"2025-
 [24/03/2025 10:49:23] [REQUEST 113df082-65e5-4e8e-a306-cc3ecb8fcbb1] POST /api/auth/login
 [24/03/2025 10:49:23] [RESPONSE 113df082-65e5-4e8e-a306-cc3ecb8fcbb1] 200 (3,2274ms)
 Response Body: {"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZW1haWwiOiJ0ZXN0QGV4YW1wbGUuY29tIiwianRpIjoiNzYzZjNhMmEtNzY0Zi00Y2IyLWJiZGUtNDU4YjUxYjJlMDVhIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZSI6InRlc3R1c2VyIiwiZXhwIjoxNzQzNDI4OTYzLCJpc3MiOiJUcmVsbG9DbG9uZUFwaSIsImF1ZCI6IlRyZWxsb0Nsb25lQ2xpZW50In0.58mQRz2WAiqt7baMQqOR0VwtKVt5G6CLAndaToX9SdA","userId":1,"username":"testuser","email":"test@example.com"}
+[24/03/2025 11:16:02] [REQUEST 0a0cb173-f080-487a-9854-544a6822158b] GET /
+[24/03/2025 11:16:02] [RESPONSE 0a0cb173-f080-487a-9854-544a6822158b] 404 (0,986ms)
+Response Body: [Content too large to log]
+[24/03/2025 11:16:02] [REQUEST 441a6bdd-1d67-404d-b5f5-eac0a4b54ed6] GET /favicon.ico
+[24/03/2025 11:16:02] [RESPONSE 441a6bdd-1d67-404d-b5f5-eac0a4b54ed6] 404 (0,5154ms)
+Response Body: [Content too large to log]
+[24/03/2025 11:16:08] [REQUEST 3887f9fd-8762-46e1-b57e-8054b7324d7f] GET /
+[24/03/2025 11:16:08] [RESPONSE 3887f9fd-8762-46e1-b57e-8054b7324d7f] 404 (0,439ms)
+Response Body: [Content too large to log]
